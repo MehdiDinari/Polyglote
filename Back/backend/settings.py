@@ -20,15 +20,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
-    # Third-party
     'rest_framework',
     'rest_framework_simplejwt',
     'corsheaders',
-
-    # Local apps
-    'users',
+    'users',  # Assure-toi que c'est bien écrit qu'une seule fois ici
+    'courses',  # L'app que tu viens de créer
 ]
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
