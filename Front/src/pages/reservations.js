@@ -1,74 +1,64 @@
-// src/pages/Reservations.js
 import React, { useEffect, useState } from 'react';
 import axiosInstance from '../axios';
 
 function Reservations() {
   const [reservations, setReservations] = useState([]);
-  const [token, setToken] = useState(null);
+  const token = localStorage.getItem('token');
 
   useEffect(() => {
-    // Récupérer le token de localStorage (ou d'un autre moyen d'authentification)
-    const storedToken = localStorage.getItem('token');
-    setToken(storedToken);
+    if (!token) return;
 
     const fetchReservations = async () => {
       try {
         const response = await axiosInstance.get('courses/list/', {
           headers: {
-            Authorization: `Bearer ${storedToken}`,
+            Authorization: `Bearer ${token}`,
           },
         });
-        setReservations(response.data.filter(course => course.reserved_slots > 0));
+        const filtered = response.data.filter(course => course.reserved_slots > 0);
+        setReservations(filtered);
       } catch (error) {
-        console.error('Erreur lors de la récupération des réservations:', error);
+        console.error("Erreur de récupération des réservations :", error);
       }
     };
 
-    if (storedToken) {
-      fetchReservations();
-    }
-  }, []);
+    fetchReservations();
+  }, [token]);
 
   const cancelReservation = async (courseId) => {
-    if (!token) {
-      alert('Token non trouvé, veuillez vous reconnecter.');
-      return;
-    }
-
     try {
-      const response = await axiosInstance.patch(
+      await axiosInstance.patch(
         `courses/cancel-reservation/${courseId}/`,
         {},
         {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+          headers: { Authorization: `Bearer ${token}` },
         }
       );
-      alert('Réservation annulée!');
-      // Rafraîchir la liste des réservations
+      alert('Réservation annulée.');
       setReservations(reservations.filter((course) => course.id !== courseId));
     } catch (error) {
-      alert('Erreur de l\'annulation : ' + error.response.data.message);
+      alert(`Erreur lors de l'annulation : ${error?.response?.data?.message || 'Erreur inconnue'}`);
     }
   };
 
   return (
-    <div>
-      <h1>Mes réservations</h1>
-      <ul>
-        {reservations.map((course) => (
-          <li key={course.id}>
-            <h2>{course.title}</h2>
-            <p>Réservé : {course.reserved_slots} place(s)</p>
-            <button
-              onClick={() => cancelReservation(course.id)}
-            >
-              Annuler réservation
-            </button>
-          </li>
-        ))}
-      </ul>
+    <div className="reservations-container">
+      <h1>Mes Réservations</h1>
+      {reservations.length === 0 ? (
+        <p>Aucune réservation en cours.</p>
+      ) : (
+        <ul>
+          {reservations.map((course) => (
+            <li key={course.id} className="reservation-card">
+              <h2>{course.title}</h2>
+              <p>{course.reserved_slots} place(s) réservée(s)</p>
+              <button onClick={() => cancelReservation(course.id)}>
+                Annuler la réservation
+              </button>
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   );
 }
