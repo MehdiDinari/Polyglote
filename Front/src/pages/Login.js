@@ -15,7 +15,7 @@ function Login() {
 
       const token = response.data.access;
       localStorage.setItem('token', token);
-      alert('Connexion réussie !');
+      alert('Connexion réussie .');
 
       window.location.href = '/reservations'; // Redirection
     } catch (error) {
