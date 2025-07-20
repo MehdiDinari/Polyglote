@@ -15,34 +15,34 @@ function Login() {
 
       const token = response.data.access;
       localStorage.setItem('token', token);
-      alert('Connexion Successful .');
+      alert('Login Successful.');
 
-      window.location.href = '/reservations'; // Redirection
+      window.location.href = '/reservations'; // Redirect
     } catch (error) {
-      console.error('Erreur de connexion :', error);
-      alert("Échec de la connexion. Vérifie ton nom d'utilisateur ou ton mot de passe.");
+      console.error('Login error:', error);
+      alert("Login failed. Please check your username or password.");
     }
   };
 
   return (
     <div className="login-container">
-      <h1>Connexion</h1>
+      <h1>Login</h1>
       <form onSubmit={handleLogin} className="login-form">
         <input
           type="text"
-          placeholder="Nom d'utilisateur"
+          placeholder="Username"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
           required
         />
         <input
           type="password"
-          placeholder="Mot de passe"
+          placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
         />
-        <button type="submit">Se connecter</button>
+        <button type="submit">Login</button>
       </form>
     </div>
   );
