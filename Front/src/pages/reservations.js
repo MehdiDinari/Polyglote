@@ -1,12 +1,17 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom'; // Ajouté ici
 import axiosInstance from '../axios';
 
 function Reservations() {
   const [reservations, setReservations] = useState([]);
   const token = localStorage.getItem('token');
+  const navigate = useNavigate(); // Ajouté ici
 
   useEffect(() => {
-    if (!token) return;
+    if (!token) {
+      navigate('/login'); // Redirection si pas connecté
+      return;
+    }
 
     const fetchReservations = async () => {
       try {
@@ -23,7 +28,7 @@ function Reservations() {
     };
 
     fetchReservations();
-  }, [token]);
+  }, [token, navigate]);
 
   const cancelReservation = async (courseId) => {
     try {
@@ -41,9 +46,19 @@ function Reservations() {
     }
   };
 
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    alert('Déconnexion réussie.');
+    navigate('/login');
+  };
+
   return (
     <div className="reservations-container">
-      <h1>Mes Réservations</h1>
+      <div className="header">
+        <h1>Mes Réservations</h1>
+        <button onClick={handleLogout}>Se déconnecter</button> {/* Bouton ajouté */}
+      </div>
+
       {reservations.length === 0 ? (
         <p>Aucune réservation en cours.</p>
       ) : (
