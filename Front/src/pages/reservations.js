@@ -68,7 +68,7 @@ function Reservations() {
               <h2>{course.title}</h2>
               <p>{course.reserved_slots} place(s) réservée(s)</p>
               <button onClick={() => cancelReservation(course.id)}>
-                Annuler la réservation
+                Cancel
               </button>
             </li>
           ))}
