@@ -6,7 +6,7 @@ function Logout() {
 
   useEffect(() => {
     localStorage.removeItem('token');
-    alert('Vous avez été déconnecté.');
+    alert('Disconnected.');
     navigate('/login');
   }, [navigate]);
 
