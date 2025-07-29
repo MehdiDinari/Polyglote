@@ -55,7 +55,7 @@ function Reservations() {
   return (
     <div className="reservations-container">
       <div className="header">
-        <h1>Mes Réservations</h1>
+        <h1>My Classes</h1>
         <button onClick={handleLogout}>Se déconnecter</button> {/* Bouton ajouté */}
       </div>
 
