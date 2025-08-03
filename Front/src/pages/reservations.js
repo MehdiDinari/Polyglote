@@ -48,7 +48,7 @@ function Reservations() {
 
   const handleLogout = () => {
     localStorage.removeItem('token');
-    alert('Déconnexion réussie.');
+    alert('Disconnected.');
     navigate('/login');
   };
 
