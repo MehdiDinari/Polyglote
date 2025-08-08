@@ -1,10 +1,12 @@
 from django.urls import path
-from .views import CourseCreateView, CourseListView, CourseDetailView, CourseUpdateView, CourseDeleteView
+from .views import CourseCreateView, CourseListView, CourseDetailView, CourseUpdateView, CourseDeleteView, CourseReserveView, CourseCancelReservationView
 
 urlpatterns = [
-    path('create/', CourseCreateView.as_view(), name='course_create'),
-    path('list/', CourseListView.as_view(), name='course_list'),
-    path('<int:pk>/', CourseDetailView.as_view(), name='course_detail'),
-    path('<int:pk>/update/', CourseUpdateView.as_view(), name='course_update'),
-    path('<int:pk>/delete/', CourseDeleteView.as_view(), name='course_delete'),
+    path('create/', CourseCreateView.as_view(), name='course-create'),
+    path('list/', CourseListView.as_view(), name='course-list'),
+    path('detail/<int:pk>/', CourseDetailView.as_view(), name='course-detail'),
+    path('update/<int:pk>/', CourseUpdateView.as_view(), name='course-update'),
+    path('delete/<int:pk>/', CourseDeleteView.as_view(), name='course-delete'),
+    path('reserve/<int:pk>/', CourseReserveView.as_view(), name='course-reserve'),
+    path('cancel-reservation/<int:pk>/', CourseCancelReservationView.as_view(), name='course-cancel-reservation'),
 ]
