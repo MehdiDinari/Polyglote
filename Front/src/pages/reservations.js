@@ -42,7 +42,7 @@ function Reservations() {
       alert('Réservation annulée.');
       setReservations(reservations.filter((course) => course.id !== courseId));
     } catch (error) {
-      alert(`Erreur lors de l'annulation de la reservation: ${error?.response?.data?.message || 'Erreur inconnue'}`);
+      alert(`Error during the canceling of the course: ${error?.response?.data?.message || 'Erreur inconnue'}`);
     }
   };
 
