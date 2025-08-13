@@ -39,7 +39,7 @@ function Reservations() {
           headers: { Authorization: `Bearer ${token}` },
         }
       );
-      alert('Cancelled !.');
+      alert('Reservation Cancelled !.');
       setReservations(reservations.filter((course) => course.id !== courseId));
     } catch (error) {
       alert(`Error during the canceling of the course: ${error?.response?.data?.message || 'Erreur inconnue'}`);
