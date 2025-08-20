@@ -23,7 +23,7 @@ function Reservations() {
         const filtered = response.data.filter(course => course.reserved_slots > 0);
         setReservations(filtered);
       } catch (error) {
-        console.error("Erreur de récupération des réservations :", error);
+        console.error("Error during the booking :", error);
       }
     };
 
